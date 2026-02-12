@@ -22,7 +22,7 @@ const Chatbot: React.FC = () => {
       : [
           {
             sender: "bot",
-            text: "Hello 👋 Welcome to NajamStream!\n\nYou can ask me about:\n• Streams\n• Schedule\n• Signup\n• Dashboard\n• Privacy\n• Terms\n\nOr just say 'Hi' 😊",
+            text: "Hello 👋 Welcome to NajamStream — your Mishaal AI!\n\nYou can ask me about:\n• Streams\n• Schedule\n• Signup\n• Dashboard\n• Privacy\n• Terms\n• Tourism in Saudi Arabia\n• Match Predictions\n\nOr just say 'Hi' 😊",
           },
         ];
   });
@@ -33,46 +33,70 @@ const Chatbot: React.FC = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const predefinedButtons = ["Streams", "Schedule", "Signup", "Dashboard"];
+  const predefinedButtons = [
+    "Streams",
+    "Schedule",
+    "Signup",
+    "Dashboard",
+    "Tourism",
+    "Prediction",
+  ];
 
   const getBotResponse = (text: string): string => {
     const lower = text.toLowerCase();
 
+    // Greetings
     if (["hi", "hello", "hey", "salam"].includes(lower)) {
-      return "Hi there! 😊 How can I assist you today?";
+      return "Hi there! 😊 I'm Mishaal AI. I can guide you through matches, the website, and even suggest places to explore in Saudi Arabia!";
     }
 
-    if (lower.includes("stream")) {
+    // Website navigation
+    if (lower.includes("stream") || lower.includes("watch live")) {
       navigate("/streams");
-      return "Taking you to Live Streams 🎥";
+      return "The Live Stream is on the 'Watch Live' tab 🎥. You can also chat and vote in polls while watching!";
     }
 
-    if (lower.includes("schedule")) {
+    if (lower.includes("schedule") || lower.includes("fixtures")) {
       navigate("/schedule");
-      return "Opening the Match Schedule 📅";
+      return "The full Match Schedule is in the 'Match Center' 📅. Keep an eye on upcoming games!";
     }
 
     if (lower.includes("signup") || lower.includes("join")) {
       navigate("/signup");
-      return "Redirecting you to Signup ✍️";
+      return "You can sign up here ✍️ to personalize your experience.";
     }
 
     if (lower.includes("dashboard")) {
       navigate("/dashboard");
-      return "Opening your Dashboard 📊";
+      return "Opening your Dashboard 📊 to track matches, polls, and stats!";
     }
 
     if (lower.includes("privacy")) {
       navigate("/privacy");
-      return "Here is our Privacy Policy 🔐";
+      return "Here is our Privacy Policy 🔐 — your data is safe with us.";
     }
 
     if (lower.includes("terms")) {
       navigate("/terms");
-      return "Opening Terms & Conditions 📜";
+      return "Opening Terms & Conditions 📜 — please review before using the site.";
     }
 
-    return "I didn't understand that. Try one of the buttons below 😊";
+    // Tourism / Kingdom Explorer
+    if (lower.includes("tourism") || lower.includes("where to go")) {
+      return `🌍 Saudi Arabia is exciting during the World Cup! Here are some suggestions:\n\n• History: Explore Al-Ula or Diriyah for rich heritage.\n• Entertainment: Boulevard Riyadh City offers modern fun.\n• Nature: Visit Abha or the Red Sea for breathtaking scenery.`;
+    }
+
+    // Match Prediction / Logic Engine
+    if (lower.includes("predict") || lower.includes("prediction")) {
+      return `⚽ Match Prediction (Logical Estimate):\n\n• Recent Form: Team A has won 3 of their last 5 games.\n• Key Players: Their star striker is injured, lowering scoring potential.\n• Verdict: Team A has a 60% chance of winning.\n\nRemember, football is unpredictable; this is an analytical estimate, not a guarantee. Participate in live polls in the chat to share your opinion!`;
+    }
+
+    // Technical assistance
+    if (lower.includes("lag") || lower.includes("video problem")) {
+      return "If the video is lagging, try refreshing the page or lowering the resolution in the settings ⚙️.";
+    }
+
+    return "I didn't quite understand that. You can ask about matches, streams, tourism, or use the buttons below 😊";
   };
 
   const sendMessage = (text?: string) => {
@@ -95,7 +119,7 @@ const Chatbot: React.FC = () => {
     setMessages([
       {
         sender: "bot",
-        text: "Chat cleared ✅\n\nYou can ask about:\n• Streams\n• Schedule\n• Signup\n• Dashboard",
+        text: "Chat cleared ✅\n\nYou can ask about:\n• Streams\n• Schedule\n• Signup\n• Dashboard\n• Tourism\n• Match Predictions",
       },
     ]);
   };
@@ -117,7 +141,7 @@ const Chatbot: React.FC = () => {
         <div className="w-80 h-[480px] bg-white dark:bg-gray-900 rounded-xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700 animate-in fade-in slide-in-from-bottom-5 duration-300">
           {/* Header */}
           <div className="flex justify-between items-center p-4 bg-saudi-green text-white rounded-t-xl">
-            <h3 className="font-semibold">Najam Assistant</h3>
+            <h3 className="font-semibold">Mishaal AI</h3>
             <div className="flex gap-2">
               <button onClick={clearChat} className="text-xs underline">
                 Clear
